@@ -3,9 +3,14 @@
 openssl req -new -newkey rsa:4096 -x509 -sha256 -days 1825 -nodes -keyout private.key
 
 
-**************** Generate certificate request ***********************
+**************** Generate certificate request based on config file ***********************
 
 openssl req -new -key private_key.pem -out {domain_name}.csr  -config csr_request.config
+
+**************** Generate certificate request  ***********************
+openssl req -new -sha256 -key private_key.pem -out domain.csr
+
+openssl req -new -subj "/C=US/ST=DC/L=Washington/O=Company/OU=Department/CN=$(hostname)" -sha256 -key private_key.pem -out  "$(hostname).csr"
 
 
 **************** Test SSL Connection**********************************
@@ -23,3 +28,10 @@ openssl x509 -in certificate.pem -noout -enddate
 
 openssl pkcs12 -export -in {domain_name}.cer -inkey private_key.pem -out keystore.p12 -certfile CACert.crt -name application_alias
 
+*************  extracts the private key from a PKCS12 keystore file and saves it to a PEM file
+
+openssl pkcs12 -in keystore.p12 -nodes -nocerts -out private_key.pem
+
+*************  validate Certificate chain **************************
+
+openssl verify  -CAfile CACert.crt {{domain}}.cer
