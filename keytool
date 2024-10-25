@@ -1,0 +1,11 @@
+********  View Certificates in keystore *********************
+
+keytool -list -v -keystore keystore.p12 -storetype PKCS12
+
+************  Change keystore password **********************
+
+keytool -storepasswd -keystore keystore.p12 -storetype PKCS12
+
+************ Print certificate ******************************
+
+keytool -printcert -v -file new_cert.crt -storetype PKCS12
