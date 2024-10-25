@@ -1,0 +1,25 @@
+*************** Generate private key ********************************
+
+openssl req -new -newkey rsa:4096 -x509 -sha256 -days 1825 -nodes -keyout private.key
+
+
+**************** Generate certificate request ***********************
+
+openssl req -new -key private_key.pem -out {domain_name}.csr  -config csr_request.config
+
+
+**************** Test SSL Connection**********************************
+openssl s_client -connect  localhost:8843
+
+******************* Check certificate ********************************
+
+openssl x509 -in certificate.pem -text
+
+******************* Check certificate expiration date*****************
+
+openssl x509 -in certificate.pem -noout -enddate
+
+*********** Create keystore ******************************************
+
+openssl pkcs12 -export -in {domain_name}.cer -inkey private_key.pem -out keystore.p12 -certfile CACert.crt -name application_alias
+
