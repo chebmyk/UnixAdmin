@@ -38,7 +38,7 @@ openssl pkcs12 -in keystore.p12 -nodes -nocerts -out private_key.pem
 ```
 openssl verify  -CAfile CACert.crt {{domain}}.cer
 ```
-## Create certificaye chain certificate
+## Create certificate chain certificate
 ```
 cat {{domain}}.crt intermediate.crt root.crt > {{full_chain_domain_cert}}.pem
 ```
