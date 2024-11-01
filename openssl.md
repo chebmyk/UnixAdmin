@@ -7,6 +7,12 @@ openssl req -new -newkey rsa:4096 -x509 -sha256 -days 1825 -nodes -keyout privat
 ```
 openssl req -new -key private_key.pem -out {domain_name}.csr  -config csr_request.config
 ```
+
+Config file example
+ (csr_request.config)
+
+
+
 ## Generate certificate request
 ```
 openssl req -new -sha256 -key private_key.pem -out domain.csr
