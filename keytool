@@ -6,6 +6,28 @@ keytool -list -v -keystore keystore.p12 -storetype PKCS12
 
 keytool -storepasswd -keystore keystore.p12 -storetype PKCS12
 
-************ Print certificate ******************************
+keytool -storepasswd -new new_storepass -keystore keystore.jks
 
+************ Print certificate ******************************
 keytool -printcert -v -file new_cert.crt -storetype PKCS12
+
+*************** Generate a Java keystore and key pair
+keytool -genkey -alias mydomain -keyalg RSA -keystore keystore.jks  -keysize 2048
+
+*************** Generate a certificate signing request (CSR) for an existing Java keystore
+keytool -certreq -alias mydomain -keystore keystore.jks -file mydomain.csr
+
+*************** Import a root or intermediate CA certificate to an existing Java keystore
+keytool -import -trustcacerts -alias root -file Thawte.crt -keystore keystore.jks
+
+*************** Import a signed primary certificate to an existing Java keystore
+keytool -import -trustcacerts -alias mydomain -file mydomain.crt -keystore keystore.jks
+
+*************** Import New CA into Trusted Certs
+keytool -import -trustcacerts -file /path/to/ca/ca.pem -alias CA_ALIAS -keystore $JAVA_HOME/jre/lib/security/cacerts
+
+*************** Delete a certificate from a Java Keytool keystore
+keytool -delete -alias mydomain -keystore keystore.jks
+
+*************** Export a certificate from a keystore
+keytool -export -alias mydomain -file mydomain.crt -keystore keystore.jks
