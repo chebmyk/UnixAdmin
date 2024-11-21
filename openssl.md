@@ -32,6 +32,10 @@ openssl x509 -in certificate.pem -text
 ```
 openssl x509 -in certificate.pem -noout -enddate
 ```
+## Check certificate bundle
+```
+openssl crl2pkcs7 -nocrl -certfile path/to/bundle.pem | openssl pkcs7 -print_certs -text -noout
+```
 ## Create keystore
 ```
 openssl pkcs12 -export -in {domain_name}.cer -inkey private_key.pem -out keystore.p12 -certfile CACert.crt -name application_alias
