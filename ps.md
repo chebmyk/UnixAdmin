@@ -65,6 +65,18 @@ ps aux
 ps -ejH
 ```
 
+### 8. Find the PID of the unresponsive process or application.
+
+```
+ps -A | grep -i stress
+```
+
+### 9.  process tree for a given process 
+
+```
+ps -f --forest -C sshd
+```
+
 ## Custom Output Fields
 
 Use the `-o` option to display specific fields. Common fields include:
@@ -82,6 +94,12 @@ Use the `-o` option to display specific fields. Common fields include:
 
 ```
 ps -eo pid,user,comm,etime,%cpu,%mem
+```
+
+
+## Find top running processes by highest memory and CPU usage in Linux.
+```
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head
 ```
 
 ## Tips
